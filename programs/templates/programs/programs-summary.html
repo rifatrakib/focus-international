@@ -1,6 +1,8 @@
 <h1>All programs</h1>
-<ul>
+<div>
     {% for program in programs %}
-    <li>{{ program.offer.name }}</li>
+    <h3>{{ program.offer.name }}</h3>
+    <p>{{ program.description }}</p>
+    <span>{{ program.school.school_name }}</span> offering {{ program.course.get_degree_type_display }} for <span>{{ program.course.course_name }}</span>
     {% endfor %}
-<ul>
+</div>

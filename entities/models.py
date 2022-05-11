@@ -12,7 +12,7 @@ class School(models.Model):
         indexes = [models.Index(fields=['short_name'])]
     
     def __str__(self):
-        return self.university_name
+        return self.school_name
 
 
 class Course(models.Model):
@@ -22,7 +22,7 @@ class Course(models.Model):
         PHD = 'p', _('doctorate degree')
     
     course_name = models.CharField(_('name of course'), max_length=100)
-    degree_type = models.CharField(_('type of degree'), max_length=1)
+    degree_type = models.CharField(_('type of degree'), max_length=1, choices=DegreeChoices.choices)
     
     class Meta:
         indexes = [
@@ -35,4 +35,4 @@ class Course(models.Model):
         ]
     
     def __str__(self):
-        return f'{self.degree_type.name} in {self.course_name}'
+        return f'{self.get_degree_type_display()} in {self.course_name}'

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Offer, Advantages, Program
+from programs.models import Offer, Advantages, Program
 
 admin.site.register(Offer)
 admin.site.register(Advantages)

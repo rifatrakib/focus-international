@@ -25,6 +25,7 @@ class Offer(models.Model):
     def save(self, **kwargs):
         if self.slug is None:
             self.slug = self.name.replace(' ', '-')
+            print(self.slug)
         super().save(**kwargs)
 
 
@@ -33,7 +34,7 @@ class Advantages(models.Model):
     advantage = models.CharField(_('advantage of the program'), max_length=250)
     
     def __str__(self):
-        return self.offer
+        return self.offer.name
 
 
 class Program(models.Model):

@@ -1,47 +1,28 @@
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from entities.models import School, Course
-
-
-class Offer(models.Model):
-    name = models.CharField(_('name of program'), max_length=250, unique=True)
-    short_description = models.CharField(_('short description of program'), max_length=1000)
-    application_deadline = models.DateField(_('application deadline for program'), blank=True, null=True)
-    slug = models.SlugField(_('url ending of program'), max_length=250, blank=True, unique=True, allow_unicode=True)
-    
-    class Meta:
-        indexes = [
-            models.Index(fields=['name']),
-            models.Index(fields=['slug']),
-        ]
-    
-    def __str__(self):
-        return self.name
-    
-    def get_absolute_url(self):
-        return reverse('program', kwargs={'slug': self.slug})
-    
-    def save(self, **kwargs):
-        if self.slug is None:
-            self.slug = self.name.replace(' ', '-')
-            print(self.slug)
-        super().save(**kwargs)
-
-
-class Advantages(models.Model):
-    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    advantage = models.CharField(_('advantage of the program'), max_length=250)
-    
-    def __str__(self):
-        return self.offer.name
 
 
 class Program(models.Model):
-    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    description = models.TextField(_('program description'))
+    class TeachingModeChoices(models.TextChoices):
+        OFFLINE = 'offline', _('Offline')
+        ONLINE = 'online', _('Online')
+        MIXED = 'mixed', _('Mixed')
+    
+    name = models.CharField(_('Title of Program'), max_length=50, unique=True)
+    tagline = models.CharField(_('Sub-title of Program'), max_length=150, blank=True, null=True)
+    deadline = models.DateField(_('Application Deadline'), blank=True, null=True)
+    introduction = models.CharField(_('Program Introduction'), max_length=250, blank=True, null=True)
+    teaching_mode = models.CharField(_('Teaching Mode'), max_length=10, blank=True, null=True)
+    academic_history = ArrayField(models.CharField(_('Academic History'), max_length=25), blank=True, null=True)
+    advantages = ArrayField(models.CharField(_('Program Advantages'), max_length=50), blank=True, null=True)
+    description = models.CharField(_('General Description'), max_length=1000, blank=True, null=True)
+    scholarships = models.CharField(_('Scholarship Infomation'), max_length=100, blank=True, null=True)
+    institutions = ArrayField(models.CharField(_('Institutes'), max_length=50), blank=True, null=True)
+    extra_information = models.JSONField(_('Additional information'), null=True, blank=True)
+    
+    class Meta:
+        indexes = [models.Index(fields=['name'])]
     
     def __str__(self):
-        return f'{self.offer} - {self.course}, {self.school}'
+        return self.name

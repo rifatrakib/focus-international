@@ -1,6 +1,4 @@
 from django.contrib import admin
-from programs.models import Offer, Advantages, Program
+from programs.models import Program
 
-admin.site.register(Offer)
-admin.site.register(Advantages)
 admin.site.register(Program)

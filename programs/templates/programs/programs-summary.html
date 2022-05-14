@@ -1,7 +1,7 @@
 <h1>All programs</h1>
 <div>
     {% for program in programs %}
-    <h3>{{ program.name }}</h3>
+    <h3><a href="{% url 'programs:program-details' program.id %}">{{ program.name }}</a></h3>
     <p>{{ program.description }}</p>
     {% endfor %}
 </div>

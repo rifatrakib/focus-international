@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Programs{% endblock title %}
+{% block content %}
 <h1>All programs</h1>
 <div>
     {% for program in programs %}
@@ -5,3 +8,4 @@
     <p>{{ program.description }}</p>
     {% endfor %}
 </div>
+{% endblock content %}

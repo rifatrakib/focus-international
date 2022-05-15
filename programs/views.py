@@ -3,8 +3,8 @@ from programs.models import Program
 
 
 def get_programs_summary(request):
-    programs = Program.objects.all()
-    context = {'programs': programs}
+    programs = Program.objects.all().order_by('id')
+    context = {'programs': programs, 'count': len(programs)}
     return render(request, 'programs/programs-summary.html', context)
 
 

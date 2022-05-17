@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Programs{% endblock title %}
 {% block content %}
-<h1>Our programs</h1>
-<div><p>We are offering a total <b>{{ count }}</b> program{{ count|pluralize }} across prominent universities in China and Canada</p></div>
-<div>
-    {% for program in programs %}
-    <h3><a href="{% url 'programs:program-details' program.id %}">{{ program.name }}</a></h3>
-    <p>{{ program.description }}</p>
-    {% endfor %}
+<div class="container">
+    <h1>Our programs</h1>
+    <div><p>We are offering a total <b>{{ count }}</b> program{{ count|pluralize }} across prominent universities in China and Canada</p></div>
+    <div class="row">
+        {% for program in programs %}
+        <div class="col-sm-6 border border-light mb-4">
+            <div class="card p-2 bg-light border">
+                <div class="card-body">
+                    <h3 class="card-title">{{ program.name }}</h3>
+                    <h5 class="card-title">{{ program.tagline }}</h5>
+                    <p class="card-text">{{ program.introduction }}</p>
+                    <a href="{% url 'programs:program-details' program.id %}" class="btn btn-primary">See Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

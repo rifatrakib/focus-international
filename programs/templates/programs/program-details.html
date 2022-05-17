@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
-{% block title %}Program{% endblock title %}
+{% block title %}Program Details{% endblock title %}
 {% block content %}
-<h1>{{ program.name }}</h1>
-<p>{{ program.description }}</p>
+<div class="container">
+    <h1>{{ program.Name }}</h1>
+    <div>&raquo; <span>{{ program.Tagline }}</span></div>
+    <hr>
+    <h4>Details about {{ program.name }}</h4>
+    <div class="row">
+        {% for field, value in program.items %}
+        {% if field not in 'Name, Tagline' %}
+        <div class="col-3">
+            <b>{{ field }}</b>
+        </div>
+        <div class="col-9">{{ value }}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

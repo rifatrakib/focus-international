@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from programs.models import Program
+from programs.serializers import program_serializer
 
 
 def get_programs_summary(request):
@@ -9,6 +10,7 @@ def get_programs_summary(request):
 
 
 def get_program_details(request, program_id):
-    program = Program.objects.get(pk=program_id)
-    context = {'program': program}
+    program = get_object_or_404(Program, pk=program_id)
+    item = program_serializer(program)
+    context = {'program': item}
     return render(request, 'programs/program-details.html', context)

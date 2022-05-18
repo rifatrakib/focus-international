@@ -8,12 +8,22 @@
     <h4>Details about {{ program.name }}</h4>
     <div class="row">
         {% for field, value in program.items %}
-        {% if field not in 'Name, Tagline' %}
-        <div class="col-3">
-            <b>{{ field }}</b>
-        </div>
-        <div class="col-9">{{ value }}</div>
-        {% endif %}
+            {% if field not in 'Name, Tagline' %}
+                <div class="col-3">
+                    <b>{{ field }}</b>
+                </div>
+                {% if field in 'Academic History, Advantages, Scholarships, Institutions' %}
+                    <div class="col-9">
+                        <ul>
+                            {% for item in value %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="col-9">{{ value }}</div>
+                {% endif %}
+            {% endif %}
         {% endfor %}
     </div>
 </div>

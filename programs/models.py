@@ -17,7 +17,7 @@ class Program(models.Model):
     advantages = models.CharField(_('Program Advantages'), max_length=500, blank=True, null=True)
     description = models.CharField(_('General Description'), max_length=2000, blank=True, null=True)
     scholarships = models.CharField(_('Scholarship Infomation'), max_length=250, blank=True, null=True)
-    institutions = models.CharField(_('Institutes'), max_length=500, blank=True, null=True)
+    institutions = models.CharField(_('Institutes'), max_length=200, blank=True, null=True)
     extra_information = models.JSONField(_('Additional information'), null=True, blank=True)
     
     class Meta:
